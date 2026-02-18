@@ -39,7 +39,7 @@ namespace Lab1
             v0 = (double)numericUpDown1.Value;
             alpha = (double)numericUpDown2.Value;
             t_step = (double)numericUpDown3.Value;
-            string series_name = "График_" + series_amount.ToString();
+            string series_name = "Симуляция_" + series_amount.ToString();
             textBox1.AppendText($"{series_name}." + Environment.NewLine);
             textBox1.AppendText("Параметры:" + Environment.NewLine);
             textBox1.AppendText($"Начальная скорость: {v0} м/c," + Environment.NewLine);
@@ -57,9 +57,9 @@ namespace Lab1
                 y = v0 * Math.Sin(alpha) * t - ((g * t * t) / 2);
                 if (y > max_height) { max_height = y; }
                 chart1.Series[series_name].Points.AddXY(x, y);
-                vx = v0 * Math.Cos(alpha);
-                vy = v0 * Math.Sin(alpha) - g * t;
             } while (y >= 0);
+            vx = v0 * Math.Cos(alpha);
+            vy = v0 * Math.Sin(alpha) - g * t;
             textBox1.AppendText("Результаты:" + Environment.NewLine);
             textBox1.AppendText($"Дальность полёта: {Math.Round(x, 3)} м," + Environment.NewLine);
             textBox1.AppendText($"Максимальная высота: {Math.Round(max_height, 3)} м," + Environment.NewLine);
@@ -70,7 +70,7 @@ namespace Lab1
         {
             string series_name;
             for (int i = 1; i <= series_amount; i++) {
-                series_name = "График_" + i.ToString();
+                series_name = "Симуляция_" + i.ToString();
                 chart1.Series.Remove(chart1.Series[series_name]);
             }
             series_amount = 0;

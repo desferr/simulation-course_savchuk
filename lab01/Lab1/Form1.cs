@@ -35,7 +35,7 @@ namespace Lab1
         {
             series_amount += 1;
             const double g = 9.8;
-            double x = 0, y = 0, v0 = 0, alpha = 0, t_step = 0, t = 0, vx = 0, vy = 0, max_height = 0, m = 0, S = 0, C = 0, ro = 1.29;
+            double x = 0, y = 0, v0 = 0, alpha = 0, t_step = 0, vx = 0, vy = 0, max_height = 0, m = 0, S = 0, C = 0, ro = 1.29;
             v0 = (double)numericUpDown1.Value;
             alpha = (double)numericUpDown2.Value;
             t_step = (double)numericUpDown3.Value;
@@ -47,7 +47,10 @@ namespace Lab1
             textBox1.AppendText("Параметры:" + Environment.NewLine);
             textBox1.AppendText($"Начальная скорость: {v0} м/c," + Environment.NewLine);
             textBox1.AppendText($"Угол начала полёта: {alpha}°," + Environment.NewLine);
-            textBox1.AppendText($"Шаг моделирования: {t_step} с." + Environment.NewLine);
+            textBox1.AppendText($"Шаг моделирования: {t_step} с," + Environment.NewLine);
+            textBox1.AppendText($"Масса: {m} кг," + Environment.NewLine);
+            textBox1.AppendText($"Площадь сечения: {S} м^2," + Environment.NewLine);
+            textBox1.AppendText($"Коэффициент лобового сопротивления: {C}." + Environment.NewLine);
             chart1.Series.Add(series_name);
             chart1.Series[series_name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             chart1.Series[series_name].Color = colors[(series_amount - 1) % 9];
@@ -59,7 +62,6 @@ namespace Lab1
             double v = Math.Sqrt((vx * vx) + (vy * vy));
             do
             {
-                t += t_step;
                 vx = vx - k * vx * v * t_step;
                 vy = vy - (g + k * vy * v) * t_step;
                 v = Math.Sqrt((vx * vx) + (vy * vy));

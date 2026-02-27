@@ -3,6 +3,10 @@ namespace Lab1
     public partial class Form1 : Form
     {
         int series_amount = 0;
+        const double g = 9.8;
+        double x = 0, y = 0, v0 = 0, alpha = 0, t_step = 0, vx = 0, vy = 0, max_height = 0, m = 0, S = 0, C = 0, ro = 1.29, k = 0, v = 0;
+        string series_name;
+
         private List<Color> colors = new List<Color>
         {
             Color.Red,
@@ -34,15 +38,27 @@ namespace Lab1
         private void button1_Click(object sender, EventArgs e)
         {
             series_amount += 1;
-            const double g = 9.8;
-            double x = 0, y = 0, v0 = 0, alpha = 0, t_step = 0, vx = 0, vy = 0, max_height = 0, m = 0, S = 0, C = 0, ro = 1.29;
+            x = 0;
+            y = 0; 
+            v0 = 0;
+            alpha = 0;
+            t_step = 0;
+            vx = 0;
+            vy = 0;
+            max_height = 0;
+            m = 0;
+            S = 0;
+            C = 0;
+            ro = 1.29;
+            k = 0;
+            v = 0;
             v0 = (double)numericUpDown1.Value;
             alpha = (double)numericUpDown2.Value;
             t_step = (double)numericUpDown3.Value;
             m = (double)numericUpDown4.Value;
             S = (double)numericUpDown5.Value;
             C = (double)numericUpDown6.Value;
-            string series_name = "Симуляция_" + series_amount.ToString();
+            series_name = "Симуляция_" + series_amount.ToString();
             textBox1.AppendText($"{series_name}." + Environment.NewLine);
             textBox1.AppendText("Параметры:" + Environment.NewLine);
             textBox1.AppendText($"Начальная скорость: {v0} м/c," + Environment.NewLine);
@@ -56,20 +72,12 @@ namespace Lab1
             chart1.Series[series_name].Color = colors[(series_amount - 1) % 9];
             chart1.Series[series_name].Points.AddXY(x, y);
             alpha *= Math.PI / 180;
-            double k = C * S * ro / (2 * m);
+            k = C * S * ro / (2 * m);
             vx = v0 * Math.Cos(alpha);
             vy = v0 * Math.Sin(alpha);
-            double v = Math.Sqrt((vx * vx) + (vy * vy));
-            do
-            {
-                vx = vx - k * vx * v * t_step;
-                vy = vy - (g + k * vy * v) * t_step;
-                v = Math.Sqrt((vx * vx) + (vy * vy));
-                x = x + vx * t_step;
-                y = y + vy * t_step;
-                if (y > max_height) { max_height = y; }
-                chart1.Series[series_name].Points.AddXY(x, y);
-            } while (y >= 0);
+            v = Math.Sqrt((vx * vx) + (vy * vy));
+            timer1.Start();
+            
             textBox1.AppendText("Результаты:" + Environment.NewLine);
             textBox1.AppendText($"Дальность полёта: {Math.Round(x, 3)} м," + Environment.NewLine);
             textBox1.AppendText($"Максимальная высота: {Math.Round(max_height, 3)} м," + Environment.NewLine);
@@ -91,6 +99,18 @@ namespace Lab1
         private void label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            vx = vx - k * vx * v * t_step;
+            vy = vy - (g + k * vy * v) * t_step;
+            v = Math.Sqrt((vx * vx) + (vy * vy));
+            x = x + vx * t_step;
+            y = y + vy * t_step;
+            if (y > max_height) { max_height = y; }
+            chart1.Series[series_name].Points.AddXY(x, y);
+            if (y <= 0) timer1.Stop();
         }
     }
 }

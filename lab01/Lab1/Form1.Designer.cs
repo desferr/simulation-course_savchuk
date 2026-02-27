@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -46,6 +47,7 @@
             label6 = new Label();
             numericUpDown5 = new NumericUpDown();
             numericUpDown6 = new NumericUpDown();
+            timer1 = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
@@ -228,6 +230,10 @@
             numericUpDown6.TabIndex = 18;
             numericUpDown6.Value = new decimal(new int[] { 15, 0, 0, 131072 });
             // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -283,5 +289,6 @@
         private Label label6;
         private NumericUpDown numericUpDown5;
         private NumericUpDown numericUpDown6;
+        private System.Windows.Forms.Timer timer1;
     }
 }

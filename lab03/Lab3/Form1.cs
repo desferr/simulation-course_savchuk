@@ -138,6 +138,8 @@ namespace Lab3
         private int[,] Grid;
         private int humidity = 0;
         private double lightningChance = 0.00001;
+        private int rows = 120;
+        private int cols = 120;
 
         public CellularAutomaton(int humidity) {
             Grid = new int[,]
@@ -271,9 +273,9 @@ namespace Lab3
             int[] HorizontalChecks = new int[] { -1, -1, -1, 0, 0, 1, 1, 1 };
             int[] VerticalChecks = new int[] { -1, 0, 1, -1, 1, -1, 0, 1 };
             int[,] nextStep = (int[,])Grid.Clone();
-            for (int i = 0; i < 120; i++) 
+            for (int i = 0; i < rows; i++) 
             {
-                for (int j = 0; j < 120; j++) 
+                for (int j = 0; j < cols; j++) 
                 {
                     int CellStatus = Grid[i, j];
                     if (CellStatus == 0) 
@@ -288,7 +290,7 @@ namespace Lab3
                         double GrowthChance = 0.1 + (humidity / 200.0);
                         for (int k = 0; k < 8; k++) 
                         {
-                            if ((i + HorizontalChecks[k] >= 0) && (i + HorizontalChecks[k] <= 119) && (j + VerticalChecks[k] >= 0) && (j + VerticalChecks[k] <= 119))
+                            if ((i + HorizontalChecks[k] >= 0) && (i + HorizontalChecks[k] <= rows - 1) && (j + VerticalChecks[k] >= 0) && (j + VerticalChecks[k] <= cols - 1))
                             {
                                 NeighborsAmount += 1;
                                 if (Grid[i + HorizontalChecks[k], j + VerticalChecks[k]] == 1)
@@ -312,7 +314,7 @@ namespace Lab3
                         double IgniteChance = 0.25;
                         for (int k = 0; k < 8; k++)
                         {
-                            if ((i + HorizontalChecks[k] >= 0) && (i + HorizontalChecks[k] <= 119) && (j + VerticalChecks[k] >= 0) && (j + VerticalChecks[k] <= 119))
+                            if ((i + HorizontalChecks[k] >= 0) && (i + HorizontalChecks[k] <= rows - 1) && (j + VerticalChecks[k] >= 0) && (j + VerticalChecks[k] <= cols - 1))
                             {
                                 NeighborsAmount += 1;
                                 if (Grid[i + HorizontalChecks[k], j + VerticalChecks[k]] == 2)
@@ -361,7 +363,7 @@ namespace Lab3
 
         public void ChangeStatus(int x, int y, int status)
         {
-            Grid[x, y] = status;
+            if ((x >= 0) && (x <= rows - 1) && (y >= 0) && (y <= cols - 1)) Grid[x, y] = status;
         }
     }
 }

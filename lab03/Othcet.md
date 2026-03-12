@@ -44,7 +44,8 @@
 ![fire_after_lightning_strike_chance.png](./pictures/fire_after_lightning_strike_chance.png)  
 где:  
 **humidity** - влажность.  
-Т.е. вероятность возгарания места удара *Молнии* обратно пропорциональна росту влажности.  
+Т.е. вероятность возгарания места удара *Молнии* обратно пропорциональна росту влажности.
+
 **Пример работы**  
 Демонстрация интерфейса при запуске приложения:  
 ![interface_example.png](./pictures/interface_example.png)  

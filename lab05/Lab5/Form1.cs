@@ -97,6 +97,7 @@ namespace Lab5
                 MessageBox.Show("Вероятности не нормированы!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            customList.OrderByDescending(item => item.Probability).ToList();
             string text = textBoxCustom.Text;
             ulong seed = 1;
             if (checkBoxTextToSeedCustom.Checked)

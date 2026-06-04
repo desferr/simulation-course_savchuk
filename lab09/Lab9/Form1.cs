@@ -472,12 +472,30 @@ namespace Lab9
             textBoxLog.AppendText($"Среднее время пребывания в системе:\r\n");
             textBoxLog.AppendText($"Эмпирически: {avgModelTime},\r\n");
             if (queueInf && rho < 1) textBoxLog.AppendText($"Теоретически: {1 / (mu - lambda)}.\r\n");
-            double probZeroWait = waitTimes.Count(t => t < 1e-9) / (double)waitTimes.Count;
+            double probZeroWaitEmp = 0;
+            if (queueInf)
+            {
+                probZeroWaitEmp = waitTimes.Count(t => t < 1e-9) / (double)waitTimes.Count;
+                textBoxLog.AppendText($"Вероятность нулевого ожидания:\r\n");
+                textBoxLog.AppendText($"Эмпирически: {probZeroWaitEmp:F4}\r\n");
+                if (rho < 1) textBoxLog.AppendText($"Теоретически: {1 - rho:F4}\r\n");
+            }
+            else
+            {
+                int totalArrived = totalClients + (int)denialCounter;
+                probZeroWaitEmp = (double)totalClients / totalArrived;
+            }
             textBoxLog.AppendText($"Вероятность нулевого ожидания:\r\n");
-            textBoxLog.AppendText($"Эмпирически: {probZeroWait},\r\n");
-            if (queueInf && rho < 1) textBoxLog.AppendText($"Теоретически: {1 - (lambda / mu)}.\r\n");
-            else if (!queueInf && rho != 1) textBoxLog.AppendText($"Теоретически: {(1 - rho) / (1 - Math.Pow(rho, N + 1))}.\r\n");
-            else if (!queueInf && rho == 1) textBoxLog.AppendText($"Теоретически: {1 / (N + 1)}.\r\n");
+            textBoxLog.AppendText($"Эмпирически: {probZeroWaitEmp},\r\n");
+            if (queueInf && rho < 1)
+                textBoxLog.AppendText($"Теоретически: {1 - rho}.\r\n");
+            else if (!queueInf)
+            {
+                if (Math.Abs(rho - 1.0) < 1e-9)
+                    textBoxLog.AppendText($"Теоретически: {1.0 / (N + 1)}.\r\n");
+                else
+                    textBoxLog.AppendText($"Теоретически: {(1 - rho) / (1 - Math.Pow(rho, N + 1))}.\r\n");
+            }
             textBoxLog.AppendText($"Обработанных заявок: {clientsHistory.Count()}.\r\n");
             if (!queueInf)
             {

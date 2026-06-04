@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "N6BYyM6FvpQ=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\romas\\simulation-course_savchuk\\lab09\\Lab9\\Lab9.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\romas\\.nuget\\packages\\winforms.datavisualization\\1.10.2\\winforms.datavisualization.1.10.2.nupkg.sha512"
+  ],
+  "logs": []
+}
